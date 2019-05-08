@@ -1,0 +1,71 @@
+$ ./tm32dis -f1 -s0x390 -c0x36  -a0x40000000 -m -i tests/2701hgv-c_bootrom.bin >> l1boot.dasm
+$ ./tm32dis -f1 -s0x3d0 -c0x865 -a0x40000040 -m -i tests/2701hgv-c_bootrom.bin >> l1boot.dasm
+$ ./tm32dis -f1 -s0xc50 -c0xe4  -a0x400008c0 -m -i tests/2701hgv-c_bootrom.bin >> l1boot.dasm
+$ ./tm32dis -f1 -s0xd50 -c0x80  -a0x400009c0 -m -i tests/2701hgv-c_bootrom.bin >> l1boot.dasm
+
+Debug Enabled
+Read in 4096 (0x1000) bytes from file 'tests/2701hgv-c_bootrom.bin'
+Skipping 912 (0x390) bytes
+Using 0x400000000 adjustment offset
+Disassembling 3183 (0xc6f) bytes
+Transposing memory image from bit-striped to sequential bytes
+
+0000: de 03 00 00 21 14 00 0f 80 40 00 c0 00 40 00 00 
+0010: c0 20 80 40 80 00 61 7b 55 01 80 40 ff 03 00 a0 
+0020: 00 bc 5e 20 80 40 95 fb 03 ff 03 81 4f 00 20 40 
+...
+0c40: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff 
+0c50: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff 
+0c60: ff 1b 80 00 ff 1a 00 80 ff 06 00 81 ff 0a 00 81 
+0c70: ff 0a 80 80 ff 07 00 00 ff 06 00 80 ff 07 80 80 
+
+disassembly
+
+(* 0x40000000 *)    IF r1   uimm(0x40004000) -> r4,        IF r1   uimm(0xa00) -> r60,            IF r1   isubi(1) r0 -> r61,            IF r1   iclr,                          IF r1   uimm(0x40004000) -> r3;     
+(* 0x4000001c *)    IF r1   uimm(0x40000040) -> r2,        IF r1   nop,                           IF r1   writepcsw r60 r61,             IF r1   nop,                           IF r1   nop;                        
+(* 0x40000027 *)    IF r1   nop,                           IF r1   nop,                           IF r1   nop,                           IF r1   nop,                           IF r1   nop;                        
+(* 0x40000029 *)    IF r1   nop,                           IF r1   ijmpi(0x4000009f),             IF r1   nop,                           IF r1   nop,                           IF r1   nop;                        
+(* 0x40000030 *)    IF r1   nop,                           IF r1   nop,                           IF r1   nop,                           IF r1   nop,                           IF r1   nop;                        
+(* 0x40000032 *)    IF r1   nop,                           IF r1   nop,                           IF r1   nop,                           IF r1   nop,                           IF r1   nop;                        
+(* 0x40000034 *)    IF r1   nop,                           IF r1   nop,                           IF r1   nop,                           IF r1   nop,                           IF r1   nop;                        
+
+disassembly
+
+(* 0x40000040 *)    IF r1   nop,                           IF r1   ijmpt r1 r5,                   IF r1   nop,                           IF r1   nop,                           IF r1   nop;                        
+(* 0x4000005c *)    IF r1   nop,                           IF r1   nop,                           IF r1   nop,                           IF r1   nop,                           IF r1   nop;                        
+(* 0x4000005e *)    IF r1   nop,                           IF r1   nop,                           IF r1   nop,                           IF r1   nop,                           IF r1   nop;                        
+(* 0x40000060 *)    IF r1   nop,                           IF r1   nop,                           IF r1   nop,                           IF r1   nop,                           IF r1   nop;                        
+
+(* 0x40000062 *)    IF r1   uimm(0x40000062) -> r7,        IF r1   nop,                           IF r1   nop,                           IF r1   ld32r r36 r35 -> r5,           IF r1   nop;                        
+(* 0x4000007e *)    IF r1   nop,                           IF r1   nop,                           IF r1   nop,                           IF r1   ld32r r36 r33 -> r8,           IF r1   nop;                        
+(* 0x40000084 *)    IF r1   nop,                           IF r1   nop,                           IF r1   nop,                           IF r1   nop,                           IF r1   nop;                        
+(* 0x40000086 *)    IF r1   lsri(8) r5 -> r6,              IF r1   nop,                           IF r1   nop,                           IF r1   nop,                           IF r1   nop;                        
+(* 0x4000008b *)    IF r1   nop,                           IF r1   ijmpf r6 r7,                   IF r6   ijmpt r1 r2,                   IF r6   h_st32d(0) r8 r37,             IF r1   nop;                        
+(* 0x40000099 *)    IF r1   nop,                           IF r1   nop,                           IF r1   nop,                           IF r1   nop,                           IF r1   nop;                        
+(* 0x4000009b *)    IF r1   nop,                           IF r1   nop,                           IF r1   nop,                           IF r1   nop,                           IF r1   nop;                        
+(* 0x4000009d *)    IF r1   nop,                           IF r1   nop,                           IF r1   nop,                           IF r1   nop,                           IF r1   nop;                        
+
+(* 0x4000009f *)    IF r1   uimm(0xf0000000) -> r7,        IF r1   uimm(0xffff0006) -> r5,        IF r1   uimm(0x1be40044) -> r6,        IF r1   h_st32d(-28) r11 r4,           IF r1   h_st32d(-36) r9 r4;         
+(* 0x400000bb *)    IF r1   uimm(0x1be40058) -> r5,        IF r1   uimm(0x1be40814) -> r6,        IF r1   uimm(0x1be40824) -> r8,        IF r1   h_st32d(0) r5 r6,              IF r1   h_st32d(-32) r10 r4;        
+(* 0x400000d3 *)    IF r1   uimm(0x1be00000) -> r33,       IF r1   uimm(0x400009c8) -> r5,        IF r1   uimm(0x6a9415) -> r35,         IF r1   h_st32d(0) r7 r5,              IF r1   h_st32d(-24) r12 r4;        
+(* 0x400000eb *)    IF r1   uimm(0x1be40820) -> r6,        IF r1   uimm(0x1be40830) -> r35,       IF r1   uimm(0x1be4082c) -> r36,       IF r1   h_st32d(0) r35 r6,             IF r1   h_st32d(0) r33 r5;          
+(* 0x40000103 *)    IF r1   iaddi(79) r0 -> r5,            IF r1   uimm(0x400ff) -> r8,           IF r1   uimm(0xe4) -> r37,             IF r1   h_st32d(0) r0 r8,              IF r1   h_st32d(-20) r13 r4;        
+(* 0x40000119 *)    IF r34  isubi(60) r4 -> r34,           IF r1   ijmpi(0x40000149),             IF r1   nop,                           IF r1   h_st32d(-16) r14 r4,           IF r1   h_st32d(0) r7 r6;           
+(* 0x4000012b *)    IF r1   iadd r0 r2 -> r17,             IF r1   nop,                           IF r1   nop,                           IF r1   h_st32d(-12) r15 r4,           IF r1   h_st32d(-4) r17 r4;         
+(* 0x40000136 *)    IF r1   nop,                           IF r1   nop,                           IF r1   nop,                           IF r1   h_st32d(0) r8 r35,             IF r1   h_st32d(-8) r16 r4;         
+(* 0x4000013e *)    IF r1   isub r4 r37 -> r4,             IF r1   nop,                           IF r1   nop,                           IF r1   h_st32d(0) r5 r36,             IF r1   h_st32d(-60) r0 r4;         
+
+(* 0x40000149 *)    IF r1   uimm(0x40824) -> r10,          IF r1   uimm(0x4082c) -> r5,           IF r1   uimm(0x400009c8) -> r7,        IF r1   uimm(0x40828) -> r8,           IF r1   uimm(0x40000149) -> r9;     
+(* 0x40000165 *)    IF r1   uimm(0x40820) -> r11,          IF r1   uimm(0xf0000000) -> r12,       IF r1   uimm(0x40830) -> r13,          IF r1   ld32r r33 r5 -> r6,            IF r1   ld32d(0) r7 -> r33;         
+(* 0x4000017e *)    IF r1   uimm(0x140070) -> r14,         IF r1   uimm(0xac) -> r15,             IF r1   iaddi(94) r0 -> r16,           IF r1   nop,                           IF r1   nop;                        
+(* 0x4000018d *)    IF r1   nop,                           IF r1   nop,                           IF r1   nop,                           IF r1   nop,                           IF r1   nop;                        
+(* 0x4000018f *)    IF r1   lsri(8) r6 -> r7,              IF r1   iadd r10 r33 -> r8,            IF r1   iadd r11 r33 -> r10,           IF r1   ld32r r33 r8 -> r6,            IF r1   iadd r13 r33 -> r11;        
+(* 0x400001a2 *)    IF r1   iadd r5 r33 -> r9,             IF r1   ijmpf r7 r9,                   IF r1   nop,                           IF r7   h_st32d(172) r0 r4,            IF r1   nop;                        
+(* 0x400001af *)    IF r1   nop,                           IF r1   nop,                           IF r1   nop,                           IF r1   nop,                           IF r1   nop;                        
+(* 0x400001b1 *)    IF r7   iadd r15 r4-> r34,             IF r1   nop,                           IF r1   nop,                           IF r7   h_st32d(0) r6 r34,             IF r1   nop;                        
+(* 0x400001bb *)    IF r1   nop,                           IF r7   ijmpi(0x400001d8),             IF r1   nop,                           IF r7   h_st32d(0) r0 r8,              IF r1   nop;                        
+(* 0x400001c6 *)    IF r1   nop,                           IF r1   nop,                           IF r1   nop,                           IF r7   h_st32d(0) r12 r10,            IF r1   nop;                        
+(* 0x400001cc *)    IF r1   nop,                           IF r1   nop,                           IF r1   nop,                           IF r7   h_st32d(0) r14 r11,            IF r1   nop;                        
+(* 0x400001d2 *)    IF r1   nop,                           IF r1   nop,                           IF r1   nop,                           IF r7   h_st32d(0) r16 r9,             IF r1   nop;                        
+...
+

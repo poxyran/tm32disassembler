@@ -1,0 +1,46 @@
+tm32dis
+========
+
+AUTHOR
+------
+Sourceforge: http://sourceforge.net/projects/tm32dis
+Blog:  http://hackingbtbusinesshub.wordpress.com 
+Email: asbokid <ballymunboy@gmail.com> 
+
+PURPOSE
+-------
+
+This tool is an open source disassembler for the TM3260, a very long instruction word (VLIW) core.
+The core is found in a range of broadband access equipment from 2Wire, as well as storage devices
+from Buffalo, and other networked equipment.
+
+Compiled with gcc 4.6.1 x86_64 Linux, and cross-compiled for Windows with mingw32-2 gcc version 4.2.1-sjlj.
+
+USAGE
+-----
+
+see tm32dis --help
+
+ISSUES
+======
+
+The TM3260 has a variable length instruction set.  It also has no word alignment for instructions,
+nor for operations (aka "syllables").  This means that an instruction can begin at any memory location.
+
+Since this disassembler can take any arbitrary offset to start disassembling, the TriMedia's lack
+of code alignment means that the tool will attempt to disassemble data in non-text segments.
+
+This is flagged by a warning "ILLEGAL OP!".   Human intervention is required to backtrace to establish
+a 'hitching point' for a tract of code.    The official toolchain typically aligns text segments on 64
+byte boundaries, so this is a good place to re-fix the start point when continuing a disassembly.
+
+Many aspects of the TriMedia architecture, including the instruction compression scheme, are not
+officially documented, and there are errors in the official literature. For example, some operations
+are listed with clashing opcodes. It's likely that errors have crept into the disassembler because of
+this.
+
+All comments and suggestions welcomed..
+
+asbokid <ballymunboy@gmail.com>   9 November 2011
+
+
